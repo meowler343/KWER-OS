@@ -1,0 +1,10 @@
+[build]
+# Указываем цель: 32-битный x86 (или выбери x86_64-unknown-none для 64-бит)
+target = "i686-unknown-linux-gnu" 
+
+[target.'cfg(all())']
+# Флаги для линковщика, чтобы ядро было "сырым" бинарником
+rustflags = [
+    "-C", "link-arg=-nostdlib",
+    "-C", "link-arg=-Tlinker.ld", # Мы скоро создадим этот файл разметки
+]
