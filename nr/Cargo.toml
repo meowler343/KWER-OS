@@ -1,0 +1,14 @@
+[package]
+name = "nr-kernel"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Здесь пока пусто, библиотеки добавим позже
+
+[profile.dev]
+panic = "abort" # В ядре нет стандартной размотки стека
+
+[profile.release]
+panic = "abort"
+lto = true      # Оптимизация при линковке для скорости ядра
