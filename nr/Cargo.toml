@@ -3,12 +3,16 @@ name = "nr-kernel"
 version = "0.1.0"
 edition = "2021"
 
+# Указываем Cargo, где лежит код ядра
+[[bin]]
+name = "nr-kernel"
+path = "kernel.rs" 
+
 [dependencies]
-# Здесь пока пусто, библиотеки добавим позже
 
 [profile.dev]
-panic = "abort" # В ядре нет стандартной размотки стека
+panic = "abort"
 
 [profile.release]
 panic = "abort"
-lto = true      # Оптимизация при линковке для скорости ядра
+lto = true
