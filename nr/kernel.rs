@@ -1,24 +1,24 @@
-#![no_std] // Мы не используем стандартную библиотеку Rust
-#![no_main] // У нас нет обычной функции main, точку входа укажем сами
+#![no_std]
+#![no_main]
 
 use core::panic::PanicInfo;
 
-// Эта функция вызывается при панике (ошибке) ядра
+// Если ядро nr встретит критическую ошибку
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
-// Точка входа в моё ядро (вызывается загрузчиком boot.asm)
+// Точка входа для загрузчика (boot.asm)
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    // Здесь будет магия управления KWER-OS
     let vga_buffer = 0xb8000 as *mut u8;
 
     unsafe {
-        // Выведем букву 'K' (из KWER-OS) прямо в видеопамять
-        *vga_buffer = b'K';
-        *(vga_buffer.offset(1)) = 0x0b; // Ярко-голубой цвет (мой любимый хром)
+        // Выводим символ 'n' из твоего ядра nr
+        *vga_buffer = b'n';
+        // Цвет: 0x0b (мой любимый яркий синий/голубой хром)
+        *vga_buffer.offset(1) = 0x0b;
     }
 
     loop {}
