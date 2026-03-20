@@ -1,11 +1,12 @@
 [target.i686-unknown-linux-gnu]
+# Указываем использовать встроенный линковщик LLD
+linker = "rust-lld"
 rustflags = [
     "-C", "link-arg=-nostdlib",
     "-C", "link-arg=-Tlinker.ld",
     "-C", "panic=abort",
-    "-C", "relocation-model=static",
-    # Эта строка отключает тот самый вредный флаг:
-    "-C", "link-args=-Wl,--no-eh-frame-hdr", 
+    # Явно указываем flavor для линковщика
+    "-C", "linker-flavor=ld.lld",
 ]
 
 [build]
